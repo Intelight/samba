@@ -16,18 +16,21 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     echo '   directory mask = 0775' >>/etc/samba/smb.conf && \
     echo '   force directory mode = 0775' >>/etc/samba/smb.conf && \
     echo '   force user = smbuser' >>/etc/samba/smb.conf && \
-    echo '   force group = users' >>/etc/samba/smb.conf && \
+    echo '   force group = root' >>/etc/samba/smb.conf && \
     echo '   load printers = no' >>/etc/samba/smb.conf && \
     echo '   printing = bsd' >>/etc/samba/smb.conf && \
     echo '   printcap name = /dev/null' >>/etc/samba/smb.conf && \
     echo '   disable spoolss = yes' >>/etc/samba/smb.conf && \
     echo '   socket options = TCP_NODELAY' >>/etc/samba/smb.conf && \
+	echo '   encrypt passwords = true' >>/etc/samba/smb.conf && \
+	echo '   server signing = mandatory' >>/etc/samba/smb.conf && \
+	echo '   smb encrypt = mandatory' >>/etc/samba/smb.conf && \
     echo '' >>/etc/samba/smb.conf && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/*
 COPY samba.sh /usr/bin/
 
-VOLUME ["/etc/samba"]
+#VOLUME ["/etc/samba"]
 
 EXPOSE 137/udp 138/udp 139 445
 
